@@ -29,27 +29,27 @@
               message.header
             }}</span>
             <p class="text-gray-500 font-bold">{{ message.message }}</p>
-            <p class="text-gray-500 font-bold"
-              >
-              {{ message.header }}後，您可以在列表頁點擊 <i class="pi pi-sync text-s text-primary"></i> 按鈕重新啟用</p
-            >
+            <p class="text-gray-500 font-bold">
+              {{ message.header }}後，您可以在列表頁點擊
+              <i class="pi pi-sync text-s text-primary"></i> 按鈕重新啟用
+            </p>
           </div>
         </div>
 
         <!-- Buttons -->
         <div class="flex justify-content-end mt-auto">
-          <button
-            pButton
-            label="Cancel"
+          <p-button
+            [outlined]="true"
+            label="我再想想"
+            rounded="true"
             (click)="cd.reject()"
-            class="p-button-outlined w-8rem mr-2"
-          ></button>
-          <button
-            pButton
-            label="Save"
+            class="mr-2"
+          ></p-button>
+          <p-button
+            rounded="true"
+            [label]="getButtonLabel(message.header)"
             (click)="cd.accept()"
-            class="w-8rem"
-          ></button>
+          ></p-button>
         </div>
       </div>
     </ng-template>

@@ -90,13 +90,32 @@ export class UsersComponent implements OnInit {
       this.dt1?.filter(selectedValue, 'role', 'equals');
     }
   }
-  confirmActivate(user: User) {
+  async confirmActivate(user: User) {
     this.confirmDialog.show(
       '啟用用戶',
       `您是否確定要啟用「${user.c_Name}」的帳號？`,
-      () => {
-        console.log('User activated:', user);
-        // this.activateUser(user);
+      async () => {
+        try {
+          const message = await this.userApiService.updateUserStatus(
+            user.id as string,
+            true
+          );
+          this.messageService.add({
+            severity: 'success',
+            summary: '成功',
+            detail: message,
+            life: 3000,
+          });
+          // Optionally reload data
+          this.loadData();
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: '失敗',
+            detail: '啟用用戶時出錯',
+            life: 3000,
+          });
+        }
       },
       () => {
         console.log('Activation cancelled');
@@ -104,19 +123,32 @@ export class UsersComponent implements OnInit {
     );
   }
 
-  confirmDeactivate(user: User) {
+  async confirmDeactivate(user: User) {
     this.confirmDialog.show(
       '停用用戶',
       `您是否確定要停用「${user.c_Name}」？`,
-      () => {
-        console.log('User deactivated:', user);
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'You have accepted',
-          life: 3000,
-        });
-        // this.deactivateUser(user);
+      async () => {
+        try {
+          const message = await this.userApiService.updateUserStatus(
+            user.id as string,
+            false
+          );
+          this.messageService.add({
+            severity: 'success',
+            summary: '成功',
+            detail: message,
+            life: 3000,
+          });
+          // Optionally reload data
+          this.loadData();
+        } catch (error) {
+          this.messageService.add({
+            severity: 'error',
+            summary: '失敗',
+            detail: '停用用戶時出錯',
+            life: 3000,
+          });
+        }
       },
       () => {
         console.log('Deactivation cancelled');

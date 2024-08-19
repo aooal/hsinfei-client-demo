@@ -20,10 +20,17 @@ export class ConfirmDialogComponent {
       message,
       acceptIcon: 'none',
       rejectIcon: 'none',
-      rejectButtonStyleClass: 'p-button-text custom-reject',
-      acceptButtonStyleClass: 'custom-accept',
       accept,
       reject
     });
+  }
+  getButtonLabel(header: string): string {
+    if (header === '啟用用戶') {
+      return '確定啟用';
+    } else if (header === '停用用戶') {
+      return '確定停用';
+    } else {
+      return '確認';
+    }
   }
 }

@@ -21,7 +21,7 @@ export class UserApiService {
       return response.data;
     } catch (error: any) {
       this.handleError(error, 'Error fetching roles');
-      return []; 
+      return [];
     }
   }
 
@@ -32,7 +32,7 @@ export class UserApiService {
       return this.processUserAvatars(response.data);
     } catch (error: any) {
       this.handleError(error, 'Error fetching users');
-      return []; 
+      return [];
     }
   }
 
@@ -42,8 +42,28 @@ export class UserApiService {
       avatarFileUrl: user.avatarFileUrl || Avatar_Default_URL,
     }));
   }
+  async updateUserStatus(id: string, status: boolean): Promise<string> {
+    const endpoint = '/User/UpdateUserStatus';
+    try {
+      const response = await this.client.post<string>(endpoint, { id, status });
+      return response.data;
+    } catch (error: unknown) {
+      this.handleError(error, 'Error updating user status');
+      throw error;
+    }
+  }
 
-  private handleError(error: AxiosError, message: string) {
-    console.error(message, error);
+  private handleError(error: unknown, message: string) {
+    if (axios.isAxiosError(error)) {
+      console.error(message, {
+        status: error.response?.status,
+        data: error.response?.data,
+        headers: error.response?.headers,
+      });
+    } else if (error instanceof Error) {
+      console.error(message, error.message);
+    } else {
+      console.error(message, error);
+    }
   }
 }
