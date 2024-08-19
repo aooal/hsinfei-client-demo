@@ -7,6 +7,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AvatarModule } from 'primeng/avatar';
 import { DropdownModule } from 'primeng/dropdown';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageService, ConfirmationService } from 'primeng/api';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +20,8 @@ import { DropdownModule } from 'primeng/dropdown';
     ToolbarModule,
     AvatarModule,
     DropdownModule,
+    ConfirmDialogModule,
+    ToastModule
   ],
   exports: [
     CommonModule,
@@ -27,6 +32,9 @@ import { DropdownModule } from 'primeng/dropdown';
     ToolbarModule,
     AvatarModule,
     DropdownModule,
+    ConfirmDialogModule,
+    ToastModule
   ],
+  providers: [MessageService, ConfirmationService]
 })
 export class SharedModule {}

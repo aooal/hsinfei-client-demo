@@ -1,18 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserApiService } from './user.apiService'; 
+import { UserApiService } from './user.apiService';
 import { User } from './user.model';
 import { SharedModule } from '../sharedModule';
 import { Table } from 'primeng/table';
 import { Roles } from './roles.model';
-
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, ConfirmDialogComponent],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
+  @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
   @ViewChild('dt1') dt1: Table | undefined;
   users: User[] = [];
   roles: Roles[] = [];
@@ -20,9 +22,12 @@ export class UsersComponent implements OnInit {
   loading: boolean = true;
   searchValue: string | undefined;
   selectedRole: number | null = null;
+  userId: string | null = null;
 
-  constructor(private userApiService: UserApiService) {} 
-
+  constructor(
+    private userApiService: UserApiService,
+    private messageService: MessageService
+  ) {}
   ngOnInit(): void {
     this.loadData();
     this.statuses = [
@@ -49,7 +54,9 @@ export class UsersComponent implements OnInit {
       console.log('Data load complete');
     }
   }
-
+  getDtails(id: string): void {
+    console.log(id);
+  }
   getStatusLabel(value: boolean): string {
     const status = this.statuses.find((status) => status.value === value);
     return status ? status.label : 'Unknown';
@@ -64,7 +71,7 @@ export class UsersComponent implements OnInit {
     table.clear();
     this.searchValue = '';
     this.selectedRole = null;
-    this.loadData(); 
+    this.loadData();
   }
 
   filterGlobal(event: Event): void {
@@ -82,5 +89,38 @@ export class UsersComponent implements OnInit {
     } else {
       this.dt1?.filter(selectedValue, 'role', 'equals');
     }
+  }
+  confirmActivate(user: User) {
+    this.confirmDialog.show(
+      '啟用用戶',
+      `您是否確定要啟用「${user.c_Name}」的帳號？`,
+      () => {
+        console.log('User activated:', user);
+        // this.activateUser(user);
+      },
+      () => {
+        console.log('Activation cancelled');
+      }
+    );
+  }
+
+  confirmDeactivate(user: User) {
+    this.confirmDialog.show(
+      '停用用戶',
+      `您是否確定要停用「${user.c_Name}」？`,
+      () => {
+        console.log('User deactivated:', user);
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmed',
+          detail: 'You have accepted',
+          life: 3000,
+        });
+        // this.deactivateUser(user);
+      },
+      () => {
+        console.log('Deactivation cancelled');
+      }
+    );
   }
 }

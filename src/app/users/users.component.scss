@@ -1,19 +1,19 @@
 .p-table th, .p-table td {
   display: flex;
-  align-items: center; /* 垂直居中对齐内容 */
-  justify-content: center; /* 水平居中对齐内容 */
-  min-height: 50px; /* 设置最小高度以确保所有列的高度一致 */
-  padding: 10px; /* 根据需要调整填充以确保一致性 */
+  align-items: center; 
+  justify-content: center; 
+  min-height: 50px; 
+  padding: 10px;
 }
 
 .p-table th {
-  text-align: right; /* 右对齐表头文本 */
+  text-align: right;
 }
 
 .p-table th div, .p-table td div {
   display: flex;
-  align-items: center; /* 垂直居中对齐内容 */
-  justify-content: center; /* 水平居中对齐内容 */
+  align-items: center; 
+  justify-content: center;
 }
 
 .status-active {
@@ -22,7 +22,7 @@
 }
 
 .status-active::before {
-  content: '•'; /* Unicode bullet point */
+  content: '•'; 
   color: green;
   margin-right: 0.5em;
   font-weight: bold;
@@ -34,8 +34,23 @@
 }
 
 .status-inactive::before {
-  content: '•'; /* Unicode bullet point */
+  content: '•'; 
   color: gray;
   margin-right: 0.5em;
   font-weight: bold;
+}
+
+:host ::ng-deep .custom-accept {
+  border-radius: 20px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.85rem;
+}
+
+:host ::ng-deep .custom-reject {
+  border: 2px solid var(--primary-color);
+  border-radius: 20px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.85rem;
+  background-color: transparent; 
+  color: var(--primary-color); 
 }

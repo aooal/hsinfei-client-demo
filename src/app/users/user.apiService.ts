@@ -21,7 +21,7 @@ export class UserApiService {
       return response.data;
     } catch (error: any) {
       this.handleError(error, 'Error fetching roles');
-      return []; // Return an empty array on error
+      return []; 
     }
   }
 
@@ -32,7 +32,7 @@ export class UserApiService {
       return this.processUserAvatars(response.data);
     } catch (error: any) {
       this.handleError(error, 'Error fetching users');
-      return []; // Return an empty array on error
+      return []; 
     }
   }
 

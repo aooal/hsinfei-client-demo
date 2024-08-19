@@ -1,0 +1,39 @@
+:host ::ng-deep .p-dialog {
+    width: 600px; 
+
+}
+
+.p-dialog-content{
+    height: 250px; overflow: auto;
+}
+
+.p-dialog-header {
+    background-color: #f5f5f5;
+}
+  
+.p-dialog-footer {
+    text-align: right;
+}
+  
+.custom-icon{
+    border-radius: 10px;
+    background-color: #FFED97;
+}
+.custom-icon-color{
+    color: orange;
+}
+.relative {
+    position: relative;
+  }
+  
+  .absolute {
+    position: absolute;
+  }
+  
+  .top-2 {
+    top: 0.5rem; 
+  }
+  
+  .right-2 {
+    right: 0.5rem; 
+  }

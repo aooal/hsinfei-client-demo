@@ -109,8 +109,10 @@
         <td>
           <div class="flex justify-content-end align-items-center">
             <p-button
+              (onClick)="getDtails(user.id)"
               icon="pi pi-eye"
-              [rounded]="true" [text]="true"
+              [rounded]="true"
+              [text]="true"
             />
           </div>
         </td>
@@ -118,7 +120,8 @@
           <div class="flex justify-content-end">
             <p-button
               icon="pi pi-pen-to-square"
-              [rounded]="true" [text]="true"
+              [rounded]="true"
+              [text]="true"
             />
           </div>
         </td>
@@ -126,17 +129,23 @@
           <div class="flex justify-content-end">
             <p-button
               icon="pi pi-times-circle"
-              [rounded]="true" [text]="true"
+              [rounded]="true"
+              [text]="true"
+              *ngIf="user.status"
+              (onClick)="confirmDeactivate(user)"
             />
           </div>
         </td>
         <td>
           <div class="flex justify-content-end mr-4">
-            <p-button        
+            <p-button
               icon="pi pi-sync"
-              [rounded]="true" [text]="true"
+              [rounded]="true"
+              [text]="true"
+              *ngIf="!user.status"
+              (onClick)="confirmActivate(user)"
             >
-        </p-button>
+            </p-button>
           </div>
         </td>
       </tr>
@@ -148,4 +157,5 @@
       </tr>
     </ng-template>
   </p-table>
+  <app-confirm-dialog class="w-8rem"></app-confirm-dialog>
 </div>
